@@ -6,13 +6,20 @@ export interface Package extends JSON {
   version?: string;
   scripts?: Record<string, string>;
   tsds?: Config;
+  source?: string;
 }
 
-export interface Config {
+// FileConfig is the subset of Config that can be specified in files
+// This allows future expansion where some options are runtime-only
+export interface FileConfig {
   source?: string;
   targets?: string[];
   commands?: JSON;
   globals?: Record<string, string>;
+}
+
+export interface Config extends FileConfig {
+  // Future: runtime-only options can be added here
 }
 
 export interface CommandOptions extends SpawnOptions {
