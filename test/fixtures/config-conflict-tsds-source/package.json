@@ -1,0 +1,8 @@
+{
+  "name": "config-conflict-tsds-source-test",
+  "version": "1.0.0",
+  "source": "src/toplevel.ts",
+  "tsds": {
+    "source": "src/tsds.ts"
+  }
+}
