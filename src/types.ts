@@ -14,7 +14,9 @@ export interface Package extends JSON {
 export interface FileConfig {
   source?: string;
   targets?: string[];
-  commands?: JSON;
+  // Commands mapping: command name -> module name
+  // Use null to disable a default command
+  commands?: Record<string, string | null>;
   globals?: Record<string, string>;
 }
 
