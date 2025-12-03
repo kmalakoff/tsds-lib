@@ -35,22 +35,29 @@ export function loadFileConfig(cwd: string): FileConfig | null {
 
   const hasTsdsSection = pkg?.tsds && typeof pkg.tsds === 'object';
   const hasTopLevelSource = pkg?.source && typeof pkg.source === 'string';
+  const hasTsdsSource = hasTsdsSection && pkg.tsds.source && typeof pkg.tsds.source === 'string';
 
-  // Count config sources
-  const sources: string[] = [];
-  if (hasRcFile) sources.push('.tsdsrc.json');
-  if (hasTsdsSection) sources.push('package.json "tsds" section');
-  if (hasTopLevelSource) sources.push('package.json "source" field');
-
-  // Error if multiple sources
-  if (sources.length > 1) {
-    throw new Error(`Conflicting tsds configuration: found ${sources.join(' and ')}. Use only one configuration method.`);
+  // .tsdsrc.json is exclusive - cannot coexist with package.json config
+  if (hasRcFile && (hasTsdsSection || hasTopLevelSource)) {
+    const pkgSources = [hasTsdsSection && 'package.json "tsds" section', hasTopLevelSource && 'package.json "source" field'].filter(Boolean);
+    throw new Error(`Conflicting tsds configuration: found .tsdsrc.json and ${pkgSources.join(' and ')}. Use only one configuration method.`);
   }
 
-  // Return the single source (if any)
+  // Error if source is defined in both top-level and inside tsds section
+  if (hasTopLevelSource && hasTsdsSource) {
+    throw new Error('Conflicting tsds configuration: found "source" in both package.json top-level and "tsds" section. Use only one.');
+  }
+
+  // Return .tsdsrc.json config if present
   if (hasRcFile) return rcConfig;
-  if (hasTsdsSection) return pkg.tsds;
-  if (hasTopLevelSource) return { source: pkg.source };
+
+  // Merge top-level source with tsds section
+  if (hasTsdsSection || hasTopLevelSource) {
+    return {
+      ...(hasTsdsSection ? pkg.tsds : {}),
+      ...(hasTopLevelSource ? { source: pkg.source } : {}),
+    };
+  }
 
   return null;
 }
