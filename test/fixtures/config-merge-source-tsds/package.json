@@ -1,0 +1,11 @@
+{
+  "name": "config-merge-source-tsds-test",
+  "version": "1.0.0",
+  "source": "src/index.ts",
+  "tsds": {
+    "targets": ["esm", "cjs"],
+    "commands": {
+      "build": null
+    }
+  }
+}

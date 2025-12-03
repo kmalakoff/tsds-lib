@@ -76,8 +76,18 @@ describe('lib', () => {
         assert.throws(() => loadConfig({ cwd: path.join(fixturesPath, 'config-conflict-rc-source') }), /Conflicting tsds configuration.*\.tsdsrc\.json.*package\.json "source" field/);
       });
 
-      it('should throw error when both package.json tsds and top-level source exist', () => {
-        assert.throws(() => loadConfig({ cwd: path.join(fixturesPath, 'config-conflict-tsds-source') }), /Conflicting tsds configuration.*package\.json "tsds" section.*package\.json "source" field/);
+      it('should throw error when source is in both top-level and tsds section', () => {
+        assert.throws(() => loadConfig({ cwd: path.join(fixturesPath, 'config-conflict-tsds-source') }), /Conflicting tsds configuration.*"source" in both.*top-level.*"tsds" section/);
+      });
+    });
+
+    describe('config merging', () => {
+      it('should merge top-level source with tsds section config', () => {
+        const config = loadConfig({ cwd: path.join(fixturesPath, 'config-merge-source-tsds') });
+        assert.ok(config);
+        assert.equal(config.source, 'src/index.ts');
+        assert.deepEqual(config.targets, ['esm', 'cjs']);
+        assert.deepEqual(config.commands, { build: null });
       });
     });
   });
@@ -123,8 +133,18 @@ describe('lib', () => {
         assert.throws(() => loadFileConfig(path.join(fixturesPath, 'config-conflict-rc-source')), /Conflicting tsds configuration/);
       });
 
-      it('should throw error when both package.json tsds and top-level source exist', () => {
-        assert.throws(() => loadFileConfig(path.join(fixturesPath, 'config-conflict-tsds-source')), /Conflicting tsds configuration/);
+      it('should throw error when source is in both top-level and tsds section', () => {
+        assert.throws(() => loadFileConfig(path.join(fixturesPath, 'config-conflict-tsds-source')), /Conflicting tsds configuration.*"source" in both/);
+      });
+    });
+
+    describe('config merging', () => {
+      it('should merge top-level source with tsds section config', () => {
+        const config = loadFileConfig(path.join(fixturesPath, 'config-merge-source-tsds'));
+        assert.ok(config);
+        assert.equal(config.source, 'src/index.ts');
+        assert.deepEqual(config.targets, ['esm', 'cjs']);
+        assert.deepEqual(config.commands, { build: null });
       });
     });
   });
