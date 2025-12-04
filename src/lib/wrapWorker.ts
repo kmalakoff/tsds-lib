@@ -11,7 +11,7 @@ export default function wrapWorker(workerPath: string): Wrapper {
 
     const callback = args.pop() as WrapperCallback;
     try {
-      callback(null, (_require('node-version-call') as typeof nodeVersionCall).apply(null, [{ version, callbacks: true }, workerPath, ...args]));
+      callback(null, (_require('node-version-call') as typeof nodeVersionCall).apply(null, [{ version, callbacks: true, env: process.env }, workerPath, ...args]));
     } catch (err) {
       callback(err);
     }
