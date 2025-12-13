@@ -40,18 +40,15 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "cross-spawn-cb": "*",
-    "node-version-call": "*"
+    "cross-spawn-cb": "^2.4.14",
+    "node-version-call": "^1.9.19"
   },
   "devDependencies": {
-    "@types/mocha": "*",
-    "@types/node": "*",
-    "mocha": "*",
-    "mocha-compat": "*",
-    "node-version-use": "*",
-    "ts-dev-stack": "*",
-    "ts-swc-loaders": "*",
-    "tsds-config": "*"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.0.1",
+    "node-version-use": "^2.1.6",
+    "ts-dev-stack": "^1.21.3",
+    "tsds-config": "^0.2.1"
   },
   "engines": {
     "node": ">=0.8"
