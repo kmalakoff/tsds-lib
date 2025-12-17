@@ -1,3 +1,4 @@
+// TODO: Remove this file - use wrap() from node-version-call@1.11.0+ instead
 import Module from 'module';
 import type nodeVersionCall from 'node-version-call';
 
