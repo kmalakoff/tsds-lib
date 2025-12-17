@@ -40,17 +40,14 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "cross-spawn-cb": "*",
-    "node-version-call": "*"
+    "cross-spawn-cb": "^2.0.0",
+    "node-version-call": "^1.9.19"
   },
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
-    "mocha": "*",
-    "mocha-compat": "*",
     "node-version-use": "*",
     "ts-dev-stack": "*",
-    "ts-swc-loaders": "*",
     "tsds-config": "*"
   },
   "engines": {
