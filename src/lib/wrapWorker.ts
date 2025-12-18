@@ -7,7 +7,7 @@ const _require = typeof require === 'undefined' ? Module.createRequire(import.me
 import type { Wrapper, WrapperCallback } from '../types.ts';
 
 export default function wrapWorker(workerPath: string): Wrapper {
-  return function workerWrapper(version: string, ...args: unknown[]): undefined {
+  return function workerWrapper(version: string, ...args: unknown[]): void {
     if (version === 'local') return _require(workerPath).apply(null, args);
 
     const callback = args.pop() as WrapperCallback;
