@@ -32,6 +32,3 @@ export interface CommandOptions extends SpawnOptions {
 }
 
 export type CommandCallback = (error?: Error) => void;
-
-export type Wrapper = (version: string, ...args: unknown[]) => void;
-export type WrapperCallback = (error?: Error, result?: unknown) => void;
