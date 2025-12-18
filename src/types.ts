@@ -31,7 +31,7 @@ export interface CommandOptions extends SpawnOptions {
   installPath?: string;
 }
 
-export type CommandCallback = (error?: Error) => undefined;
+export type CommandCallback = (error?: Error) => void;
 
-export type Wrapper = (version: string, ...args: unknown[]) => undefined;
-export type WrapperCallback = (error?: Error, result?: unknown) => undefined;
+export type Wrapper = (version: string, ...args: unknown[]) => void;
+export type WrapperCallback = (error?: Error, result?: unknown) => void;
