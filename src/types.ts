@@ -13,6 +13,7 @@ export interface Package extends JSON {
 // This allows future expansion where some options are runtime-only
 export interface FileConfig {
   source?: string;
+  entry?: string;
   targets?: string[];
   // Commands mapping: command name -> module name
   // Use null to disable a default command
