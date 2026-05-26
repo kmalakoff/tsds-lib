@@ -35,7 +35,7 @@ export function loadFileConfig(cwd: string): FileConfig | null {
 
   const hasTsdsSection = pkg?.tsds && typeof pkg.tsds === 'object';
   const hasTopLevelSource = pkg?.source && typeof pkg.source === 'string';
-  const hasTsdsSource = hasTsdsSection && pkg.tsds.source && typeof pkg.tsds.source === 'string';
+  const hasTsdsSource = hasTsdsSection && pkg?.tsds?.source && typeof pkg?.tsds?.source === 'string';
 
   // .tsdsrc.json is exclusive - cannot coexist with package.json config
   if (hasRcFile && (hasTsdsSection || hasTopLevelSource)) {
@@ -54,8 +54,8 @@ export function loadFileConfig(cwd: string): FileConfig | null {
   // Merge top-level source with tsds section
   if (hasTsdsSection || hasTopLevelSource) {
     return {
-      ...(hasTsdsSection ? pkg.tsds : {}),
-      ...(hasTopLevelSource ? { source: pkg.source } : {}),
+      ...(hasTsdsSection ? (pkg as Package).tsds : {}),
+      ...(hasTopLevelSource ? { source: (pkg as Package).source } : {}),
     };
   }
 
@@ -71,6 +71,6 @@ export default function loadConfig(options: CommandOptions = {}): Config {
   const config = loadFileConfig(cwd);
 
   // Cache in options for subsequent calls
-  options.config = config;
-  return config;
+  options.config = config ?? undefined;
+  return config as Config;
 }
