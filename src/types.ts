@@ -32,4 +32,4 @@ export interface CommandOptions extends SpawnOptions {
   installPath?: string;
 }
 
-export type CommandCallback = (error?: Error) => void;
+export type CommandCallback = (error?: Error | null) => void;
