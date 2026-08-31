@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "tsds-lib", "ts-swc-loaders"]
+ignores: ["tsds-lib", "node-version-use", "ts-dev-stack", "ts-swc-loaders"]
