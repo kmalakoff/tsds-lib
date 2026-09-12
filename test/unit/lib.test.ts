@@ -4,9 +4,8 @@ delete process.env.NODE_OPTIONS;
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
-import url from 'url';
-
 import { installPath, loadConfig } from 'tsds-lib';
+import url from 'url';
 
 const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : url.fileURLToPath(import.meta.url));
 const packagePath = path.join(__dirname, '..', '..');
